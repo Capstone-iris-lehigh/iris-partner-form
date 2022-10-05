@@ -1,38 +1,226 @@
-.App {
-  text-align: center;
+:root {
+  --font-color: #333e49;
+  --theme-color: #dc0303;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  color: var(--font-color);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-nav {
+  padding: 50px 100px 0 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-nav__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #dc0303;
+  font-weight: 500;
+}
+
+.form-svg {
+  position: relative;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.form-svg::before {
+  margin-right: 7px;
+  content: url(./asset/form.svg);
+}
+
+.app-nav__description {
+  padding: 30px 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-align: center;
+}
+
+.app-nav__description h5 {
+  font-size: 0.75rem;
+  width: fit-content;
+  background-color: #f6f6f6;
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin: 0;
+  color: #636d77;
+}
+
+.app-nav__description p {
+  color: #636d77;
+  line-height: 1.5;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+
+.app-form-nav {
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #e1e6eb;
+  box-shadow: 0 6px 17px 2px rgb(51 62 73 / 8%);
+  display: flex;
+  justify-content: center;
+}
+
+.app-form-nav__container {
+  padding: 20px 0;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.app-form-nav .underline {
+  height: 2px;
+  background-color: var(--theme-color);
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+}
+
+.app-form-nav span {
+  align-items: center;
+  color: #88929e;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  margin-right: 30px;
+  transition: 0.15s ease-out 0.1s;
+  cursor: pointer;
+  position: relative;
+}
+
+.app-form-nav span::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 15px;
+  background-color: #e1e6eb;
+  left: calc(100% + 15px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app-form-nav span.active {
+  color: var(--theme-color);
+  pointer-events: none;
+}
+
+/* Input fields */
+.app-form-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.app-form-content .content {
+  display: grid;
+  gap: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  width: 800px;
+}
+
+.app-form-content .content > :nth-last-child(2),
+.app-form-content .content > :last-child {
+  grid-column: span 2;
+}
+
+.app-form-content .input-container {
+  font-size: 1.3rem;
+  color: black;
+  position: relative;
+  width: 100%;
+}
+
+.app-form-content .input-container span {
+  text-transform: capitalize;
+  position: absolute;
+  color: rgb(143, 143, 143);
+  transition: 0.3s;
+  font-size: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
+  pointer-events: none;
+}
+
+.app-form-content .input-container .input-container__input:focus-within ~ span,
+.app-form-content .input-container span.active {
+  font-size: 0.7rem;
+  transform: translateY(-20px);
+}
+.app-form-content .input-container.--textarea .input-container__input {
+  padding-top: 30px;
+  height: 250px;
+  resize: none;
+}
+.app-form-content .input-container.--textarea span {
+  top: 30px;
+}
+
+.app-form-content
+  .input-container.--textarea
+  .input-container__input:focus-within
+  ~ span,
+.app-form-content .input-container.--textarea span.active {
+  transform: translateY(-15px);
+}
+
+.app-form-content .input-container .input-container__input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 20px 20px 10px 20px;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-wrap: normal;
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.app-form-content .input-container .input-container__input:focus-within {
+  outline-color: #f24444;
+}
+
+.app-form-content .content button {
+  cursor: pointer;
+  outline: 0;
+  width: 100%;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  margin-bottom: 15px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--theme-color);
+  border: none;
 }
