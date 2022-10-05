@@ -73,7 +73,7 @@ class Form1 extends Form {
           "Executive Profiles (max 100 words)"
         )}
         {/* {this.printfetchError(this.state.fetchError)} */}
-        {this.renderButton("Continue to next step!")}
+        {this.renderButton("Continue to next step!", this.props.btnOnClick)}
       </div>
     );
   }

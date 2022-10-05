@@ -49,10 +49,12 @@ class Form extends Component {
     this.setState({ errors: {} });
   };
 
-  renderButton(label) {
+  renderButton(label, btnOnClick) {
     const { loading } = this.state;
     return (
-      <button>{loading ? <DotLoader size={20} color="white" /> : label}</button>
+      <button onClick={() => btnOnClick()}>
+        {loading ? <DotLoader size={20} color="white" /> : label}
+      </button>
     );
   }
 

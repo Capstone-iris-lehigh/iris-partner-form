@@ -130,14 +130,18 @@ html {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 50px 0;
+  position: absolute;
 }
 
 .app-form-content .content {
+  padding: 80px 100px 50px;
+  margin: 0 50px 50px 50px;
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(2, 1fr);
-  width: 800px;
+  width: 900px;
+  box-shadow: 0 5px 8px 0 rgb(0 0 0 / 8%);
+  border-top: none;
 }
 
 .app-form-content .content > :nth-last-child(2),
@@ -162,6 +166,12 @@ html {
   transform: translateY(-50%);
   left: 20px;
   pointer-events: none;
+}
+
+.app-form-content .input-container span::after {
+  content: "*";
+  margin-left: 2px;
+  color: red;
 }
 
 .app-form-content .input-container .input-container__input:focus-within ~ span,
