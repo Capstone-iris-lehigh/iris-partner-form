@@ -13,6 +13,7 @@ class formContent extends Component {
     previousStep: 0,
     step: 0,
     navItemRef: [],
+    divHeighRef: null,
     elementLength: [],
   };
 
@@ -20,6 +21,7 @@ class formContent extends Component {
     const { step, navItemRef } = this.state;
 
     this.setState({
+      divHeighRef: React.createRef(),
       navItemRef: [
         React.createRef(),
         React.createRef(),
@@ -54,9 +56,9 @@ class formContent extends Component {
     const { previousStep, step } = this.state;
 
     if (step > previousStep) {
-      return -50;
+      return -30;
     }
-    return 50;
+    return 30;
   }
 
   btnOnClick = () => {
@@ -118,16 +120,10 @@ class formContent extends Component {
 
         <Transition
           items={this.state.step}
-          // from={{ opacity: 0.5, transform: `translateX(${this.dir()}px)` }}
-          // enter={{ opacity: 1, transform: `translateX(0)` }}
-          from={{
-            opacity: 0.5,
-            transform: `scaleY(0.5)`,
-            transformOrigin: "top",
-          }}
-          enter={{ opacity: 1, transform: `scaleY(1)` }}
+          from={{ opacity: 0.5, transform: `translateX(${this.dir()}px)` }}
+          enter={{ opacity: 1, transform: `translateX(0)` }}
           leave={{ display: "none" }}
-          config={config.stiff}
+          config={config.default}
         >
           {(style, item) => (
             <animated.div className="app-form-content" style={style}>
