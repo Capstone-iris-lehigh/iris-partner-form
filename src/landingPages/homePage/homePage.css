@@ -15,19 +15,33 @@ html {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.app-nav {
-  padding: 50px 100px 0 50px;
+.home-nav {
+  padding: 50px 100px 0 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-image: url(../../asset/form-bg.jpg);
+  background-size: cover;
 }
 
-.app-nav__header {
+.home-nav__header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  color: #dc0303;
   font-weight: 500;
+  color: white;
+}
+
+.home-nav__header a {
+  color: white;
+  text-decoration: none;
+}
+.home-nav__header a:hover {
+  text-decoration: underline;
+}
+
+.home-nav__header img {
+  margin-left: 40px;
 }
 
 .form-svg {
@@ -38,10 +52,10 @@ html {
 }
 .form-svg::before {
   margin-right: 7px;
-  content: url(./asset/form.svg);
+  content: url(../../asset/form.svg);
 }
 
-.app-nav__description {
+.home-nav__description {
   padding: 30px 150px;
   display: flex;
   flex-direction: column;
@@ -50,7 +64,7 @@ html {
   text-align: center;
 }
 
-.app-nav__description h5 {
+.home-nav__description h5 {
   font-size: 0.75rem;
   width: fit-content;
   background-color: #f6f6f6;
@@ -60,8 +74,8 @@ html {
   color: #636d77;
 }
 
-.app-nav__description p {
-  color: #636d77;
+.home-nav__description p {
+  color: white;
   line-height: 1.5;
   width: fit-content;
   padding: 5px 10px;
@@ -69,16 +83,15 @@ html {
   font-size: 0.95rem;
 }
 
-.app-form-nav {
+.home-form-nav {
   width: 100%;
   background-color: white;
-  border-top: 1px solid #e1e6eb;
   box-shadow: 0 6px 17px 2px rgb(51 62 73 / 8%);
   display: flex;
   justify-content: center;
 }
 
-.app-form-nav__container {
+.home-form-nav__container {
   padding: 20px 0;
   width: fit-content;
   display: flex;
@@ -87,54 +100,61 @@ html {
   height: 100%;
 }
 
-.app-form-nav .underline {
+.home-form-nav .underline {
   height: 2px;
   background-color: var(--theme-color);
   position: absolute;
   left: 0;
-  bottom: 0px;
+  top: 0px;
 }
 
-.app-form-nav span {
+.home-form-nav span {
   align-items: center;
-  color: #88929e;
+  color: #b5b8bc;
   display: inline-block;
   font-size: 13px;
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
-  margin-right: 30px;
+  margin-right: 60px;
   transition: 0.15s ease-out 0.1s;
-  cursor: pointer;
+  cursor: default;
   position: relative;
 }
-
-.app-form-nav span::after {
-  position: absolute;
-  content: "";
-  width: 1px;
-  height: 15px;
-  background-color: #e1e6eb;
-  left: calc(100% + 15px);
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.app-form-nav span.active {
+.home-form-nav span.active {
   color: var(--theme-color);
   pointer-events: none;
 }
 
+.home-form-nav span.clickable {
+  cursor: pointer;
+  position: relative;
+  color: #1eba45;
+}
+.home-form-nav span.clickable::before {
+  content: "";
+  background-image: url("../../asset/check.svg");
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: calc(100% + 5px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* Input fields */
-.app-form-content {
+
+.home-form-content {
   width: 100%;
   display: flex;
   justify-content: center;
   position: absolute;
 }
 
-.app-form-content .content {
-  padding: 80px 100px 50px;
+.home-form-content .content {
+  background-color: white;
+  padding: 80px 80px 50px;
   margin: 0 50px 50px 50px;
   display: grid;
   gap: 50px;
@@ -144,20 +164,19 @@ html {
   border-top: none;
 }
 
-.app-form-content .content > :nth-last-child(2),
-.app-form-content .content > :last-child {
+.home-form-content .content > :nth-last-child(2),
+.home-form-content .content > :last-child {
   grid-column: span 2;
 }
 
-.app-form-content .input-container {
+.home-form-content .input-container {
   font-size: 1.3rem;
   color: black;
   position: relative;
   width: 100%;
 }
 
-.app-form-content .input-container span {
-  text-transform: capitalize;
+.home-form-content .input-container span {
   position: absolute;
   color: rgb(143, 143, 143);
   transition: 0.3s;
@@ -168,35 +187,35 @@ html {
   pointer-events: none;
 }
 
-.app-form-content .input-container span::after {
+.home-form-content .input-container span::after {
   content: "*";
   margin-left: 2px;
   color: red;
 }
 
-.app-form-content .input-container .input-container__input:focus-within ~ span,
-.app-form-content .input-container span.active {
+.home-form-content .input-container .input-container__input:focus-within ~ span,
+.home-form-content .input-container span.active {
   font-size: 0.7rem;
   transform: translateY(-20px);
 }
-.app-form-content .input-container.--textarea .input-container__input {
+.home-form-content .input-container.--textarea .input-container__input {
   padding-top: 30px;
   height: 250px;
   resize: none;
 }
-.app-form-content .input-container.--textarea span {
+.home-form-content .input-container.--textarea span {
   top: 30px;
 }
 
-.app-form-content
+.home-form-content
   .input-container.--textarea
   .input-container__input:focus-within
   ~ span,
-.app-form-content .input-container.--textarea span.active {
+.home-form-content .input-container.--textarea span.active {
   transform: translateY(-15px);
 }
 
-.app-form-content .input-container .input-container__input {
+.home-form-content .input-container .input-container__input {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -213,11 +232,11 @@ html {
   -moz-appearance: none;
   appearance: none;
 }
-.app-form-content .input-container .input-container__input:focus-within {
+.home-form-content .input-container .input-container__input:focus-within {
   outline-color: #f24444;
 }
 
-.app-form-content .content button {
+.home-form-content .content button {
   cursor: pointer;
   outline: 0;
   width: 100%;
@@ -233,4 +252,47 @@ html {
   justify-content: center;
   background-color: var(--theme-color);
   border: none;
+}
+
+.input-container .error-message {
+  position: absolute;
+  top: calc(100% + 10px);
+  color: #f1493d;
+  display: flex;
+
+  align-items: center;
+}
+.input-container .error-message p {
+  font-size: 0.7rem;
+  margin: 0;
+}
+.input-container .error-message::first-letter {
+  text-transform: capitalize;
+}
+
+.input-container .error-message img {
+  width: 15px;
+  margin-right: 5px;
+}
+.confirmation-content-container h5 {
+  font-size: 17px;
+  color: var(--theme-color);
+  display: flex;
+  justify-content: space-between;
+}
+.confirmation-content-container img {
+  width: 20px;
+  cursor: pointer;
+}
+
+.confirmation-content-container h5:last-of-type {
+  margin-top: 60px;
+}
+
+.confirmation-content-container div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgb(233, 233, 233);
 }

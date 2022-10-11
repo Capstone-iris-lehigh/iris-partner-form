@@ -1,19 +1,18 @@
-import "./asset/normalize.css";
-import "./App.css";
-import irisgo from "./asset/irisgo.svg";
-import FormContent from "./component/FormContent";
+import "./homePage.css";
+import irisgo from "../../asset/irisgo.svg";
+import FormRoute from "./components/FormRoute";
 
-function App() {
+function HomePage() {
   return (
-    <div className="app">
-      <nav className="app-nav">
-        <div className="app-nav__header">
-          <a>Home</a>
+    <div className="home">
+      <nav className="home-nav">
+        <div className="home-nav__header">
+          <a href="https://www.irisradgroup.com/">Main Site</a>
           <img src={irisgo} />
-          <a className="form-svg">Form</a>
+          <span className="form-svg">Form</span>
         </div>
 
-        <div className="app-nav__description">
+        <div className="home-nav__description">
           <h5>New Channel Partner Engagement Profile</h5>
           <p>
             IRIS R&D Group Inc. would like to take the necessary steps in
@@ -24,9 +23,9 @@ function App() {
         </div>
       </nav>
 
-      <FormContent />
+      <FormRoute />
     </div>
   );
 }
 
-export default App;
+export default HomePage;

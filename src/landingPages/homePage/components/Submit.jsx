@@ -1,8 +1,7 @@
 import React from "react";
-import Joi from "joi-browser";
-import Form from "./reusable/Form";
+import FormTemplate from "../reusable/FormTemplate";
 
-class Confirmation extends Form {
+class Confirmation extends FormTemplate {
   state = {
     data: {},
     errors: {},
@@ -15,7 +14,7 @@ class Confirmation extends Form {
   render() {
     return (
       <div className="content">
-        <p>Confirmation</p>
+        <button>Call Iris API </button>
       </div>
     );
   }

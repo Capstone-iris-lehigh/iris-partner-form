@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import warn from "../../asset/warning.svg";
+import warn from "../../../asset/warning.svg";
 import { DotLoader } from "react-spinners";
 
 class Form extends Component {
@@ -26,21 +26,14 @@ class Form extends Component {
     return errors;
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-
+  handleSubmit = () => {
     this.setState({ errors: {} });
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    this.setState({ loading: true });
-
-    setTimeout(() => {
-      this.doSubmit();
-      this.setState({ loading: false });
-    }, 500);
+    this.props.goNextStep();
   };
 
   handleChange = ({ currentTarget: input }) => {
@@ -49,10 +42,10 @@ class Form extends Component {
     this.setState({ errors: {} });
   };
 
-  renderButton(label, btnOnClick) {
+  renderButton(label) {
     const { loading } = this.state;
     return (
-      <button onClick={() => btnOnClick()}>
+      <button onClick={() => this.handleSubmit()}>
         {loading ? <DotLoader size={20} color="white" /> : label}
       </button>
     );
