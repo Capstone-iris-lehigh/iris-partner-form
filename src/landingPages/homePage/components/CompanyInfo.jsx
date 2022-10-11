@@ -8,8 +8,8 @@ class CompanyInfo extends FormTemplate {
       companyName: "",
       businessLength: "",
       businessType: "",
-      executiveInfo: "",
       yearIncor: "",
+      executiveInfo: "",
     },
     errors: {},
   };
@@ -28,7 +28,7 @@ class CompanyInfo extends FormTemplate {
 
     executiveInfo: Joi.string()
       .min(8)
-      .max(100)
+      .max(500)
       .required()
       .label("Executive Information"),
   };
@@ -72,7 +72,7 @@ class CompanyInfo extends FormTemplate {
         {this.renderTextArea(
           this.ref.executiveInfoRef,
           "executiveInfo",
-          "Executive Profiles (max 100 words)"
+          "Executive Profiles (max 500 letters)"
         )}
         {/* {this.printfetchError(this.state.fetchError)} */}
         {this.renderButton("Continue to next step!")}

@@ -224,7 +224,6 @@ html {
   color: #1a1a1a;
   font-size: 16px;
   line-height: 1.5;
-  overflow-wrap: normal;
   background: #fff;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
@@ -281,8 +280,14 @@ html {
   justify-content: space-between;
 }
 .confirmation-content-container img {
-  width: 20px;
+  width: 30px;
+  padding: 4px;
   cursor: pointer;
+  transition: 0.1s ease-out;
+}
+
+.confirmation-content-container img:hover {
+  transform: translateY(-2px);
 }
 
 .confirmation-content-container h5:last-of-type {
@@ -295,4 +300,9 @@ html {
   margin-bottom: 20px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.confirmation-content-container div span {
+  max-width: 400px;
+  word-wrap: break-word;
 }

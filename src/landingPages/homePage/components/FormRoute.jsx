@@ -27,8 +27,8 @@ class FormRoute extends Component {
         companyName: "",
         businessLength: "",
         businessType: "",
-        executiveInfo: "",
         yearIncor: "",
+        executiveInfo: "",
       },
       offerDetailData: {
         annualRevenue: "",

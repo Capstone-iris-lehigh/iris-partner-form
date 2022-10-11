@@ -11,6 +11,20 @@ class Confirmation extends Component {
     this.setState({ data: this.props.data });
   }
 
+  varNameConvert = {
+    companyName: "Company Name",
+    businessLength: "Business Length",
+    businessType: "Business Type",
+    executiveInfo: "Executive Information",
+    yearIncor: "Year Incorporated",
+    offerDetailData: "",
+    annualRevenue: "Annual revenues for the past 4 years",
+    currentOffering: "Your current offerings",
+    numberOfStaff: "Number of staff",
+    expectedRevenue: "Expected revenues in adopting the IRIS solution",
+    offeringType: "Offering type (global or domestic)",
+  };
+
   render() {
     return (
       <div className="content">
@@ -22,7 +36,7 @@ class Confirmation extends Component {
           {this.state.data.companyInfoData &&
             Object.keys(this.state.data.companyInfoData).map((key, index) => (
               <div>
-                <span>{key}</span>
+                <span>{this.varNameConvert[key]}</span>
                 <span>{this.state.data.companyInfoData[key]}</span>
               </div>
             ))}
@@ -34,7 +48,7 @@ class Confirmation extends Component {
           {this.state.data.offerDetailData &&
             Object.keys(this.state.data.offerDetailData).map((key, index) => (
               <div>
-                <span>{key}</span>
+                <span>{this.varNameConvert[key]}</span>
                 <span>{this.state.data.offerDetailData[key]}</span>
               </div>
             ))}
