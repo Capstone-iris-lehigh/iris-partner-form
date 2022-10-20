@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import Form from "../reusable/FormTemplate";
 import edit from "../../../asset/edit.svg";
+import InputCompanyInfoJson from "../data/InputCompanyInfo.json";
+import InputOfferDetailJson from "../data/InputOfferDetail.json";
+
 class Confirmation extends Component {
   state = {
     data: {},
@@ -11,19 +14,21 @@ class Confirmation extends Component {
     this.setState({ data: this.props.data });
   }
 
-  varNameConvert = {
-    companyName: "Company Name",
-    businessLength: "Business Length",
-    businessType: "Business Type",
-    executiveInfo: "Executive Information",
-    yearIncor: "Year Incorporated",
-    offerDetailData: "",
-    annualRevenue: "Annual revenues for the past 4 years",
-    currentOffering: "Your current offerings",
-    numberOfStaff: "Number of staff",
-    expectedRevenue: "Expected revenues in adopting the IRIS solution",
-    offeringType: "Offering type (global or domestic)",
-  };
+  varNameConvert_InputCompanyInfoJson(varName) {
+    for (var i = 0; i < InputCompanyInfoJson.length; i++) {
+      if (InputCompanyInfoJson[i].variableName === varName) {
+        return InputCompanyInfoJson[i].title;
+      }
+    }
+  }
+
+  varNameConvert_InputOfferDetailJson(varName) {
+    for (var i = 0; i < InputOfferDetailJson.length; i++) {
+      if (InputOfferDetailJson[i].variableName === varName) {
+        return InputOfferDetailJson[i].title;
+      }
+    }
+  }
 
   render() {
     return (
@@ -36,7 +41,7 @@ class Confirmation extends Component {
           {this.state.data.companyInfoData &&
             Object.keys(this.state.data.companyInfoData).map((key, index) => (
               <div>
-                <span>{this.varNameConvert[key]}</span>
+                <span>{this.varNameConvert_InputCompanyInfoJson(key)}</span>
                 <span>{this.state.data.companyInfoData[key]}</span>
               </div>
             ))}
@@ -47,8 +52,8 @@ class Confirmation extends Component {
           </h5>
           {this.state.data.offerDetailData &&
             Object.keys(this.state.data.offerDetailData).map((key, index) => (
-              <div>
-                <span>{this.varNameConvert[key]}</span>
+              <div key={index}>
+                <span>{this.varNameConvert_InputOfferDetailJson(key)}</span>
                 <span>{this.state.data.offerDetailData[key]}</span>
               </div>
             ))}

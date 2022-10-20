@@ -1,16 +1,11 @@
 import React from "react";
+// import Joi from "joi-browser";
 import Joi from "joi-browser";
 import FormTemplate from "../reusable/FormTemplate";
-
+import InputCompanyInfoJson from "../data/InputCompanyInfo.json";
 class CompanyInfo extends FormTemplate {
   state = {
-    data: {
-      companyName: "",
-      businessLength: "",
-      businessType: "",
-      yearIncor: "",
-      executiveInfo: "",
-    },
+    data: {},
     errors: {},
   };
 
@@ -18,14 +13,12 @@ class CompanyInfo extends FormTemplate {
     this.setState({ data: this.props.data });
   }
 
+  //look forward how to read from json file
   schema = {
     companyName: Joi.string().min(4).max(30).required().label("Company Name"),
     businessType: Joi.string().required().label("Business Type"),
-
-    businessLength: Joi.number().required().label("Business Length"),
-
+    businessLength: Joi.number().required().required().label("Business Length"),
     yearIncor: Joi.number().required().label("Year Incorporated"),
-
     executiveInfo: Joi.string()
       .min(8)
       .max(500)
@@ -37,44 +30,37 @@ class CompanyInfo extends FormTemplate {
     this.props.flushFormData("companyInfoData", this.state.data);
   };
 
-  ref = {
-    companyNameRef: React.createRef(),
-    businessLengthRef: React.createRef(),
-    businessTypeRef: React.createRef(),
-    executiveInfoRef: React.createRef(),
-    yearIncorRef: React.createRef(),
-  };
+  getRefFromJsonFile() {
+    let ref = {};
+    InputCompanyInfoJson.forEach(({ variableName }) => {
+      ref[variableName + "Ref"] = React.createRef();
+    });
+    return ref;
+  }
+
+  ref = this.getRefFromJsonFile();
 
   render() {
     return (
       <div className="content">
-        {this.renderInput(
-          this.ref.companyNameRef,
-          "companyName",
-          "Company Name"
-        )}
-        {this.renderInput(
-          this.ref.businessTypeRef,
-          "businessType",
-          "Select Company Type"
-        )}
-        {this.renderInput(
-          this.ref.businessLengthRef,
-          "businessLength",
-          "Business Length"
+        {InputCompanyInfoJson.map(
+          ({ variableName, InputPlaceHolder, htmlType }, index) => {
+            if (htmlType === "inputField") {
+              return this.renderInput(
+                this.ref[variableName + "Ref"],
+                variableName,
+                InputPlaceHolder
+              );
+            } else if (htmlType === "textAreaField") {
+              return this.renderTextArea(
+                this.ref[variableName + "Ref"],
+                variableName,
+                InputPlaceHolder
+              );
+            }
+          }
         )}
 
-        {this.renderInput(
-          this.ref.yearIncorRef,
-          "yearIncor",
-          "Year Incorporated "
-        )}
-        {this.renderTextArea(
-          this.ref.executiveInfoRef,
-          "executiveInfo",
-          "Executive Profiles (max 500 letters)"
-        )}
-        {/* {this.printfetchError(this.state.fetchError)} */}
         {this.renderButton("Continue to next step!")}
       </div>
     );

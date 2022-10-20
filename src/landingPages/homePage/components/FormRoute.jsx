@@ -5,8 +5,6 @@ import OfferDetail from "./OfferDetail";
 import Confirmation from "./Confirmation";
 import Submit from "./Submit";
 
-import checkSVG from "../../../asset/check.svg";
-
 class FormRoute extends Component {
   constructor(props) {
     super(props);
@@ -23,20 +21,8 @@ class FormRoute extends Component {
 
     //form data state
     data: {
-      companyInfoData: {
-        companyName: "",
-        businessLength: "",
-        businessType: "",
-        yearIncor: "",
-        executiveInfo: "",
-      },
-      offerDetailData: {
-        annualRevenue: "",
-        currentOffering: "",
-        numberOfStaff: "",
-        expectedRevenue: "",
-        offeringType: "",
-      },
+      companyInfoData: {},
+      offerDetailData: {},
     },
   };
 
@@ -77,7 +63,7 @@ class FormRoute extends Component {
     var offset = 0;
     //60 for margin in css
     for (let i = 0; i < currentStep; i++) {
-      offset += elementLength[i] + 60;
+      offset += elementLength[i] + 30;
     }
     return offset;
   }
@@ -148,7 +134,11 @@ class FormRoute extends Component {
           />
         ),
       },
-      { id: 3, label: "Submit & Print", Component: <Submit /> },
+      {
+        id: 3,
+        label: "Submit & Print",
+        Component: <Submit data={this.state.data} />,
+      },
     ];
 
     const { currentStep, navItemRef, completedStep } = this.state;
@@ -204,8 +194,11 @@ class FormRoute extends Component {
 
         <Transition
           items={this.state.currentStep}
-          from={{ opacity: 0.5, transform: `translateX(${this.dir()}px)` }}
-          enter={{ opacity: 1, transform: `translateX(0)` }}
+          // from={{ opacity: 0.5, transform: `translateX(${this.dir()}px)` }}
+          // enter={{ opacity: 1, transform: `translateX(0)` }}
+
+          from={{ opacity: 0, transform: `translateY(-20px)` }}
+          enter={{ opacity: 1, transform: `translateY(0px)` }}
           leave={{ display: "none" }}
           config={config.default}
         >

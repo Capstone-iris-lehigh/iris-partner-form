@@ -15,13 +15,21 @@ html {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+.home {
+  background-image: url(../../asset/form-bg.jpg);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 50px;
+  min-height: 100vh;
+}
+
 .home-nav {
   padding: 50px 100px 0 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-image: url(../../asset/form-bg.jpg);
-  background-size: cover;
 }
 
 .home-nav__header {
@@ -41,7 +49,8 @@ html {
 }
 
 .home-nav__header img {
-  margin-left: 40px;
+  margin-left: 20px;
+  width: 150px;
 }
 
 .form-svg {
@@ -56,7 +65,7 @@ html {
 }
 
 .home-nav__description {
-  padding: 30px 150px;
+  padding: 40px 0px 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,14 +90,15 @@ html {
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.95rem;
+  width: 900px;
 }
 
 .home-form-nav {
   width: 100%;
   background-color: white;
-  box-shadow: 0 6px 17px 2px rgb(51 62 73 / 8%);
+  border-bottom: 1px solid whitesmoke;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .home-form-nav__container {
@@ -116,10 +126,11 @@ html {
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
-  margin-right: 60px;
+  text-align: center;
   transition: 0.15s ease-out 0.1s;
   cursor: default;
   position: relative;
+  margin-right: 30px;
 }
 .home-form-nav span.active {
   color: var(--theme-color);
@@ -143,19 +154,32 @@ html {
   transform: translateY(-50%);
 }
 
+.home-form-nav span:last-child {
+  margin-right: 0;
+}
+
 /* Input fields */
+.home-form-container {
+  overflow-x: scroll;
+  height: fit-content;
+  width: 900px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .home-form-content {
   width: 100%;
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: relative;
 }
 
 .home-form-content .content {
   background-color: white;
   padding: 80px 80px 50px;
-  margin: 0 50px 50px 50px;
+
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(2, 1fr);
@@ -245,7 +269,6 @@ html {
   width: 100%;
   margin-bottom: 15px;
   height: 50px;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,4 +328,124 @@ html {
 .confirmation-content-container div span {
   max-width: 400px;
   word-wrap: break-word;
+}
+
+/*
+####################################################
+M E D I A  Q U E R I E S
+####################################################
+*/
+
+/*
+::::::::::::::::::::::::::::::::::::::::::::::::::::
+Bootstrap 5 breakpoints
+*/
+
+/* 
+Extra small devices (portrait phones, less than 576px) 
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  .home-nav__description p {
+    width: 95%;
+  }
+  .home-form-container {
+    width: 95%;
+  }
+  .home-form-content .content {
+    width: 100%;
+  }
+}
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (max-width: 768px) {
+  .home-nav__header img {
+    width: 100px;
+  }
+  .home-nav {
+    padding: 40px 40px 0 40px;
+  }
+
+  .home-form-content .content {
+    padding: 40px 40px 10px;
+  }
+  .home-form-nav__container {
+  }
+  .home-form-content .input-container .input-container__input {
+    font-size: 12px;
+  }
+  .home-form-content .input-container span {
+    font-size: 12px;
+  }
+  .home-form-nav span {
+    font-size: 10px;
+  }
+  .home-form-content .content button {
+    font-size: 12px;
+  }
+  .home-nav__description p {
+    font-size: 13px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .input-container .error-message {
+    top: calc(100% + 5px);
+  }
+  .home-nav__description p {
+    width: 100%;
+  }
+
+  .home-form-content .content > :nth-last-child(2),
+  .home-form-content .content > :last-child {
+    grid-column: unset;
+  }
+  .home-form-content .content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 30px 20px 10px;
+  }
+  .home-nav {
+    padding: 30px 20px 0 20px;
+  }
+  .home-nav__description p {
+    font-size: 12px;
+  }
+  .home-nav__description {
+    padding: 30px 0;
+  }
+
+  .confirmation-content-container h5 {
+    font-size: 13px;
+    margin-top: 0;
+  }
+  .confirmation-content-container img {
+    width: 25px;
+  }
+  .confirmation-content-container div {
+    font-size: 12px;
+  }
+
+  .home-nav__header a {
+    font-size: 13px;
+  }
+  .form-svg {
+    font-size: 13px;
+  }
+  .home-nav__header img {
+    width: 70px;
+  }
+  .form-svg::before {
+    transform: scale(0.7) translate(3px, -5px);
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) {
+}
+
+/* Extra extra large devices (extra large desktops, 1400px and up) */
+@media (max-width: 1400px) {
 }

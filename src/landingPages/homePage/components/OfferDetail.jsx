@@ -1,16 +1,11 @@
 import React from "react";
 import Joi from "joi-browser";
 import FormTemplate from "../reusable/FormTemplate";
+import InputOfferDetailJson from "../data/InputOfferDetail.json";
 
 class OfferDetail extends FormTemplate {
   state = {
-    data: {
-      annualRevenue: "",
-      currentOffering: "",
-      numberOfStaff: "",
-      expectedRevenue: "",
-      offeringType: "",
-    },
+    data: {},
     errors: {},
   };
 
@@ -31,44 +26,37 @@ class OfferDetail extends FormTemplate {
     this.props.flushFormData("offerDetailData", this.state.data);
   };
 
-  ref = {
-    annualRevenueRef: React.createRef(),
-    numberOfStaffRef: React.createRef(),
-    currentOfferingRef: React.createRef(),
-    offeringTypeRef: React.createRef(),
-    expectedRevenueRef: React.createRef(),
-  };
+  getRefFromJsonFile() {
+    let ref = {};
+    InputOfferDetailJson.forEach(({ variableName }) => {
+      ref[variableName + "Ref"] = React.createRef();
+    });
+    return ref;
+  }
+
+  ref = this.getRefFromJsonFile();
 
   render() {
     return (
       <div className="content">
-        {this.renderInput(
-          this.ref.annualRevenueRef,
-          "annualRevenue",
-          "Annual revenues for the past 4 years"
-        )}
-        {this.renderInput(
-          this.ref.currentOfferingRef,
-          "currentOffering",
-          "Your current offerings"
-        )}
-        {this.renderInput(
-          this.ref.numberOfStaffRef,
-          "numberOfStaff",
-          "Number of staff"
-        )}
-        {this.renderInput(
-          this.ref.offeringTypeRef,
-          "offeringType",
-          "Offering global or domestic"
-        )}
-        {this.renderInput(
-          this.ref.expectedRevenueRef,
-          "expectedRevenue",
-          "Expected revenues in adopting the IRIS solution"
+        {InputOfferDetailJson.map(
+          ({ variableName, InputPlaceHolder, htmlType }, index) => {
+            if (htmlType === "inputField") {
+              return this.renderInput(
+                this.ref[variableName + "Ref"],
+                variableName,
+                InputPlaceHolder
+              );
+            } else if (htmlType === "textAreaField") {
+              return this.renderTextArea(
+                this.ref[variableName + "Ref"],
+                variableName,
+                InputPlaceHolder
+              );
+            }
+          }
         )}
 
-        {/* {this.printfetchError(this.state.fetchError)} */}
         {this.renderButton("Continue to next step!")}
       </div>
     );
