@@ -1,9 +1,10 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { animated, Spring, config, Transition } from "react-spring";
-import CompanyInfo from "./CompanyInfo";
-import OfferDetail from "./OfferDetail";
+import GeneralFormComponent from "./GeneralFormComponent";
+
 import Confirmation from "./Confirmation";
 import Submit from "./Submit";
+import { formContent } from "../data/formContent";
 
 class FormRoute extends Component {
   constructor(props) {
@@ -15,66 +16,87 @@ class FormRoute extends Component {
     previousStep: 0,
     currentStep: 0,
     completedStep: 0,
+
+    //state for animation
     navItemRef: [],
-    divHeighRef: null,
+    containerRef: React.createRef(),
     elementLength: [],
+    containerLength: null,
 
     //form data state
-    data: {
-      companyInfoData: {},
-      offerDetailData: {},
-    },
+    data: this.loadFieldDataVariableFromFile(),
   };
 
-  componentDidMount() {
+  handleResize = () => {
     this.setState({
-      divHeighRef: React.createRef(),
-      navItemRef: [
-        React.createRef(),
-        React.createRef(),
-        React.createRef(),
-        React.createRef(),
-      ],
+      navItemRef: this.dynamicallyGenerateItemRef(),
     });
 
     setTimeout(() => {
       this.setState({
-        elementLength: [
-          this.state.navItemRef[0].current.offsetWidth,
-          this.state.navItemRef[1].current.offsetWidth,
-          this.state.navItemRef[2].current.offsetWidth,
-          this.state.navItemRef[3].current.offsetWidth,
-        ],
+        elementLength: this.dynamicallyGenerateItemLength(),
+        containerLength: this.state.containerRef.current.offsetWidth,
       });
-    }, 100);
+    }, 0);
+  };
+
+  dynamicallyGenerateItemLength() {
+    const elementLength = [];
+    //dynamic for input file
+    formContent.forEach((i, index) => {
+      elementLength.push(this.state.navItemRef[index].current.offsetWidth);
+    });
+
+    //two for confirmation and submit
+    elementLength.push(
+      this.state.navItemRef[formContent.length].current.offsetWidth,
+      this.state.navItemRef[formContent.length + 1].current.offsetWidth
+    );
+    return elementLength;
   }
 
-  flushFormData(field, data) {
-    this.setState({
-      data: {
-        ...this.state.data,
-        [field]: data,
-      },
+  dynamicallyGenerateItemRef() {
+    const ref = [];
+    //dynamic for input file
+    formContent.forEach(() => {
+      ref.push(React.createRef());
     });
+
+    //two for confirmation and submit
+    ref.push(React.createRef(), React.createRef());
+    return ref;
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  loadFieldDataVariableFromFile() {
+    var data = {};
+    formContent.forEach(({ fieldVarLabel }) => {
+      data[fieldVarLabel] = {};
+    });
+    return data;
   }
 
   calOffset() {
-    const { currentStep, elementLength } = this.state;
-    var offset = 0;
-    //60 for margin in css
+    const { currentStep, elementLength, containerLength } = this.state;
+    var offset =
+      (containerLength - elementLength.reduce((pre, cur) => pre + cur, 0)) /
+      (elementLength.length + 1);
+
+    var translateX = offset;
+
     for (let i = 0; i < currentStep; i++) {
-      offset += elementLength[i] + 30;
+      translateX += elementLength[i] + offset;
     }
-    return offset;
-  }
 
-  dir() {
-    const { previousStep, currentStep } = this.state;
-
-    if (currentStep > previousStep) {
-      return -20;
-    }
-    return 20;
+    return translateX;
   }
 
   goNextStep = () => {
@@ -100,53 +122,50 @@ class FormRoute extends Component {
   };
 
   render() {
-    const data = [
-      {
-        id: 0,
-        label: "Company Information",
+    const routes = [];
+
+    // create dynamic route from reading file
+    formContent.forEach(({ fieldLabel, formContent, fieldVarLabel }, index) => {
+      routes.push({
+        id: index,
+        label: fieldLabel,
         Component: (
-          <CompanyInfo
+          <GeneralFormComponent
             goNextStep={this.goNextStep}
-            data={this.state.data.companyInfoData}
-            flushFormData={this.flushFormData}
+            data={this.state.data[fieldVarLabel]}
+            formContent={formContent}
           />
         ),
-      },
+      });
+    });
+
+    // create state route confirmation and submit
+    routes.push(
       {
-        id: 1,
-        label: "Offering Detail",
-        Component: (
-          <OfferDetail
-            goNextStep={this.goNextStep}
-            data={this.state.data.offerDetailData}
-            flushFormData={this.flushFormData}
-          />
-        ),
-      },
-      {
-        id: 2,
+        id: formContent.length,
         label: "Confirmation",
         Component: (
           <Confirmation
             data={this.state.data}
+            formContent={formContent}
             goNextStep={this.goNextStep}
             goBackEdit={this.goBackEdit}
           />
         ),
       },
       {
-        id: 3,
+        id: formContent.length + 1,
         label: "Submit & Print",
         Component: <Submit data={this.state.data} />,
-      },
-    ];
+      }
+    );
 
-    const { currentStep, navItemRef, completedStep } = this.state;
+    const { currentStep, navItemRef, containerRef, completedStep } = this.state;
 
     return (
       <div className="home-form-container">
         <div className="home-form-nav">
-          <div className="home-form-nav__container">
+          <div className="home-form-nav__container" ref={containerRef}>
             <Spring
               config={config.stiff}
               to={{
@@ -160,7 +179,7 @@ class FormRoute extends Component {
                     : 0
                 }px`,
 
-                transform: `translateX(${this.calOffset()}px)`,
+                transform: `translateX(${this.calOffset() || 0}px)`,
               }}
             >
               {(styles) => (
@@ -171,7 +190,7 @@ class FormRoute extends Component {
               )}
             </Spring>
 
-            {data.map(({ id, label }) => (
+            {routes.map(({ id, label }) => (
               <span
                 ref={navItemRef[id]}
                 key={id}
@@ -194,9 +213,6 @@ class FormRoute extends Component {
 
         <Transition
           items={this.state.currentStep}
-          // from={{ opacity: 0.5, transform: `translateX(${this.dir()}px)` }}
-          // enter={{ opacity: 1, transform: `translateX(0)` }}
-
           from={{ opacity: 0, transform: `translateY(-20px)` }}
           enter={{ opacity: 1, transform: `translateY(0px)` }}
           leave={{ display: "none" }}
@@ -204,7 +220,7 @@ class FormRoute extends Component {
         >
           {(style, item) => (
             <animated.div className="home-form-content" style={style}>
-              {data[item].Component}
+              {routes[item].Component}
             </animated.div>
           )}
         </Transition>

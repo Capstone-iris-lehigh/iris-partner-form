@@ -7,18 +7,15 @@ class Confirmation extends FormTemplate {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const formData = new FormData();
     const api = "";
 
-    Object.keys(this.props.data).map((key, index) =>
-      Object.keys(this.props.data[key]).map((field, index) => {
-        console.log(field);
-        formData.append(field, this.props.data[key][field]);
+    Object.keys(this.props.data).map((field) =>
+      Object.keys(this.props.data[field]).map((key) => {
+        formData.append(key, this.props.data[field][key]);
       })
     );
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + " - " + pair[1]);
-    }
 
     const request = new XMLHttpRequest();
     request.open("POST", api);

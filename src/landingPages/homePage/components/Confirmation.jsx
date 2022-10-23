@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Joi from "joi-browser";
-import Form from "../reusable/FormTemplate";
+
 import edit from "../../../asset/edit.svg";
-import InputCompanyInfoJson from "../data/InputCompanyInfo.json";
-import InputOfferDetailJson from "../data/InputOfferDetail.json";
+import { formContent } from "../data/formContent";
 
 class Confirmation extends Component {
   state = {
@@ -11,53 +9,35 @@ class Confirmation extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.setState({ data: this.props.data });
   }
 
-  varNameConvert_InputCompanyInfoJson(varName) {
-    for (var i = 0; i < InputCompanyInfoJson.length; i++) {
-      if (InputCompanyInfoJson[i].variableName === varName) {
-        return InputCompanyInfoJson[i].title;
-      }
-    }
-  }
-
-  varNameConvert_InputOfferDetailJson(varName) {
-    for (var i = 0; i < InputOfferDetailJson.length; i++) {
-      if (InputOfferDetailJson[i].variableName === varName) {
-        return InputOfferDetailJson[i].title;
-      }
-    }
-  }
-
   render() {
-    return (
-      <div className="content">
-        <div className="confirmation-content-container">
-          <h5>
-            Company Information{" "}
-            <img src={edit} onClick={() => this.props.goBackEdit(0)} />
-          </h5>
-          {this.state.data.companyInfoData &&
-            Object.keys(this.state.data.companyInfoData).map((key, index) => (
-              <div>
-                <span>{this.varNameConvert_InputCompanyInfoJson(key)}</span>
-                <span>{this.state.data.companyInfoData[key]}</span>
-              </div>
-            ))}
+    const { data } = this.state;
 
-          <h5>
-            Offering Details{" "}
-            <img src={edit} onClick={() => this.props.goBackEdit(1)} />
-          </h5>
-          {this.state.data.offerDetailData &&
-            Object.keys(this.state.data.offerDetailData).map((key, index) => (
-              <div key={index}>
-                <span>{this.varNameConvert_InputOfferDetailJson(key)}</span>
-                <span>{this.state.data.offerDetailData[key]}</span>
+    return (
+      <div className="content --confirmation-page">
+        {formContent.map(({ fieldLabel, formContent }, FieldIndex) => (
+          <div className="confirmation-content-container" key={FieldIndex}>
+            <h5>
+              {fieldLabel}
+              <img
+                src={edit}
+                onClick={() => this.props.goBackEdit(FieldIndex)}
+              />
+            </h5>
+            {formContent.map(({ title, variableName }) => (
+              <div>
+                <span>{title}</span>
+                <span>
+                  {data[Object.keys(data)[FieldIndex]] &&
+                    data[Object.keys(data)[FieldIndex]][variableName]}
+                </span>
               </div>
             ))}
-        </div>
+          </div>
+        ))}
 
         <button onClick={this.props.goNextStep}>Review and Confirm</button>
       </div>

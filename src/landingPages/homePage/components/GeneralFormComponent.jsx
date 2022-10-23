@@ -1,57 +1,55 @@
 import React from "react";
-import Joi from "joi-browser";
 import FormTemplate from "../reusable/FormTemplate";
-import InputOfferDetailJson from "../data/InputOfferDetail.json";
 
-class OfferDetail extends FormTemplate {
+class GeneralFormComponent extends FormTemplate {
   state = {
     data: {},
     errors: {},
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.setState({ data: this.props.data });
   }
 
-  schema = {
-    annualRevenue: Joi.number().required().label("Annual revenues"),
-    currentOffering: Joi.number().required().label("Current offerings"),
+  getValidationFromJsonFile() {
+    let schema = {};
+    this.props.formContent.forEach(({ variableName, joiValidation }) => {
+      schema[variableName] = joiValidation;
+    });
 
-    numberOfStaff: Joi.number().required().label("Number of staff"),
-    offeringType: Joi.string().required().label("Offering type"),
-    expectedRevenue: Joi.number().required().label("Expected revenues"),
-  };
-
-  flushFormData = () => {
-    this.props.flushFormData("offerDetailData", this.state.data);
-  };
+    return schema;
+  }
 
   getRefFromJsonFile() {
     let ref = {};
-    InputOfferDetailJson.forEach(({ variableName }) => {
+    this.props.formContent.forEach(({ variableName }) => {
       ref[variableName + "Ref"] = React.createRef();
     });
     return ref;
   }
 
+  schema = this.getValidationFromJsonFile();
   ref = this.getRefFromJsonFile();
 
   render() {
     return (
       <div className="content">
-        {InputOfferDetailJson.map(
-          ({ variableName, InputPlaceHolder, htmlType }, index) => {
+        {this.props.formContent.map(
+          ({ variableName, inputPlaceHolder, htmlType }, key) => {
             if (htmlType === "inputField") {
               return this.renderInput(
                 this.ref[variableName + "Ref"],
                 variableName,
-                InputPlaceHolder
+                inputPlaceHolder,
+                key
               );
             } else if (htmlType === "textAreaField") {
               return this.renderTextArea(
                 this.ref[variableName + "Ref"],
                 variableName,
-                InputPlaceHolder
+                inputPlaceHolder,
+                key
               );
             }
           }
@@ -63,4 +61,4 @@ class OfferDetail extends FormTemplate {
   }
 }
 
-export default OfferDetail;
+export default GeneralFormComponent;

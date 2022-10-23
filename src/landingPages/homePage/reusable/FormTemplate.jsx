@@ -62,9 +62,9 @@ class Form extends Component {
     );
   }
 
-  renderInput(ref, label, indicator, type = "text") {
+  renderInput(ref, label, indicator, key, type = "text") {
     return (
-      <div className="input-container">
+      <div className="input-container" key={key}>
         <input
           className="input-container__input"
           ref={ref}
@@ -90,9 +90,9 @@ class Form extends Component {
     );
   }
 
-  renderTextArea(ref, label, indicator, type = "text") {
+  renderTextArea(ref, label, indicator, key, type = "text") {
     return (
-      <div className="input-container --textarea">
+      <div className="input-container --textarea" key={key}>
         <textarea
           className="input-container__input "
           ref={ref}
