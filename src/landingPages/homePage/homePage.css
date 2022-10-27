@@ -190,7 +190,14 @@ html {
   border-top: none;
 }
 
-.home-form-content .content > :nth-last-child(2),
+.home-form-content .content .final-message {
+  grid-column: span 2;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.home-form-content .content > .--span-2,
 .home-form-content .content > :last-child {
   grid-column: span 2;
 }
@@ -202,14 +209,40 @@ html {
   width: 100%;
 }
 
+.home-form-content .input-container select {
+  margin-right: 40px;
+
+  /* Arrow */
+  appearance: none;
+  background-image: url("../../asset/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 70%;
+  background-size: 0.65rem auto;
+}
+
+datalist {
+  /* Arrow */
+  appearance: none;
+  background-image: url("../../asset/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 70%;
+  background-size: 0.65rem auto;
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 100;
+  margin-bottom: 20px;
+  position: absolute;
+  right: 3px;
+}
+
 .home-form-content .input-container span {
   position: absolute;
   color: rgb(143, 143, 143);
   transition: 0.3s;
   font-size: 1rem;
   top: 50%;
-  transform: translateY(-50%);
-  left: 20px;
+  transform: translateY(-30%);
   pointer-events: none;
 }
 
@@ -223,6 +256,10 @@ html {
 .home-form-content .input-container span.active {
   font-size: 0.7rem;
   transform: translateY(-20px);
+}
+
+.home-form-content .input-container.--textarea {
+  grid-column: span 2;
 }
 .home-form-content .input-container.--textarea .input-container__input {
   padding-top: 30px;
@@ -246,19 +283,21 @@ html {
   box-sizing: border-box;
   width: 100%;
   min-height: 46px;
-  padding: 20px 20px 10px 20px;
+  padding: 20px 20px 0px 0px;
   color: #1a1a1a;
   font-size: 16px;
   line-height: 1.5;
-  background: #fff;
-  border: 1px solid #d0d0d0;
-  border-radius: 8px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  /* background: #fff; */
+
+  /* border-radius: 8px; */
+
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid #d0d0d0;
 }
 .home-form-content .input-container .input-container__input:focus-within {
-  outline-color: #f24444;
+  /* outline-color: #f24444; */
+  border-bottom: 1px solid #f24444;
 }
 
 .home-form-content .content button {
@@ -276,6 +315,8 @@ html {
   justify-content: center;
   background-color: var(--theme-color);
   border: none;
+
+  margin-top: 30px;
 }
 
 .input-container .error-message {
@@ -428,7 +469,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
   }
   .home-form-content .content {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 20px;
     padding: 30px 20px 10px;
   }
   .home-nav {
@@ -463,6 +504,17 @@ No media query since this is the default in Bootstrap because it is "mobile firs
   }
   .form-svg::before {
     transform: scale(0.7) translate(3px, -5px);
+  }
+
+  .home-form-content .input-container.--textarea .input-container__input {
+    padding-top: 50px;
+  }
+
+  .home-form-content .content button {
+    margin-top: 30px;
+  }
+  .home-form-content .content .final-message {
+    font-size: 0.7rem;
   }
 }
 

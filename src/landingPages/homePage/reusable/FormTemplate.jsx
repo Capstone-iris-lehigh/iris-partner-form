@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import warn from "../../../asset/warning.svg";
 import { DotLoader } from "react-spinners";
+import CountryCode from "./CountryCode";
 
 class Form extends Component {
   state = {
@@ -39,7 +40,15 @@ class Form extends Component {
   handleChange = ({ currentTarget: input }) => {
     const { data } = this.state;
     data[input.name] = input.value;
-    this.setState({ errors: {} });
+    this.setState({ errors: {}, data });
+  };
+
+  setInitialValue = (field, value) => {
+    const { data } = this.state;
+    if (!data[field]) {
+      data[field] = value;
+      this.setState({ data });
+    }
   };
 
   renderButton(label) {
@@ -90,6 +99,40 @@ class Form extends Component {
     );
   }
 
+  renderInputSelection(ref, label, indicator, options, key) {
+    return (
+      <div className="input-container" key={key}>
+        <input
+          className="input-container__input"
+          ref={ref}
+          name={label}
+          id={label}
+          value={this.state.data[label]}
+          onChange={(e) => this.handleChange(e)}
+          list={label + "list"}
+        />
+
+        <datalist id={label + "list"}>
+          {options.map((opt) => (
+            <option>{opt}</option>
+          ))}
+        </datalist>
+
+        <span
+          className={`${
+            this.state.data[label] && this.state.data[label].length > 0
+              ? "active"
+              : ""
+          }`}
+        >
+          {indicator}
+        </span>
+
+        {this.printError(label)}
+      </div>
+    );
+  }
+
   renderTextArea(ref, label, indicator, key, type = "text") {
     return (
       <div className="input-container --textarea" key={key}>
@@ -117,6 +160,23 @@ class Form extends Component {
       </div>
     );
   }
+
+  renderCountryCode = (label, key) => {
+    if (!this.state.data[label]) {
+      this.setInitialValue(label, 1);
+    }
+    return (
+      <div className="input-container" key={key}>
+        <CountryCode
+          key={key}
+          setInitialValue={this.setInitialValue}
+          name={label}
+          value={this.state.data[label]}
+          handleChange={(e) => this.handleChange(e)}
+        />
+      </div>
+    );
+  };
 }
 
 export default Form;

@@ -27,6 +27,12 @@ class Confirmation extends FormTemplate {
   render() {
     return (
       <div className="content">
+        <p className="final-message">
+          Thank you for submitting your companies corporate profile. The IRIS
+          Team will review and be in touch soon. If chosen to be a certified
+          IRIS Smart City Solution Provide, an MOU will be sent for your review
+          and signage.
+        </p>
         <button>
           <span style={{ marginRight: "15px" }}>Calling Iris API</span>{" "}
           <PulseLoader size={5} color="white" />

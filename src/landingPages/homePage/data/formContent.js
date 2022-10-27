@@ -18,23 +18,72 @@ export const formContent = [
       },
 
       {
-        title: "Company Type",
-        variableName: "businessType",
-        inputPlaceHolder: "Select Company Type",
+        title: "Contact Name",
+        variableName: "contactName",
+        inputPlaceHolder: "Contact Name",
         htmlType: "inputField",
-        joiValidation: Joi.string().required().label("Business Type"),
+        joiValidation: Joi.string()
+          .min(3)
+          .max(30)
+          .required()
+          .label("Contact Name"),
       },
 
       {
-        title: "Business Length",
-        variableName: "businessLength",
-        inputPlaceHolder: "Business Length",
-        htmlType: "inputField",
-        joiValidation: Joi.number()
-          .required()
-          .required()
-          .label("Business Length"),
+        title: "Country Code",
+        variableName: "countryCode",
+        inputPlaceHolder: "Country Code",
+        htmlType: "countryCodeSelection",
+        joiValidation: Joi.label("Country Code"),
       },
+
+      {
+        title: "Phone",
+        variableName: "phone",
+        inputPlaceHolder: "Phone Number",
+        htmlType: "inputField",
+        joiValidation: Joi.number().label("Phone").required(),
+      },
+
+      {
+        title: "Email",
+        variableName: "email",
+        inputPlaceHolder: "Email",
+        htmlType: "inputField",
+        joiValidation: Joi.string().email().label("Email").required(),
+      },
+
+      {
+        title: "Company Website",
+        variableName: "website",
+        inputPlaceHolder: "Website Url",
+        htmlType: "inputField",
+        joiValidation: Joi.string().required().label("Company Website"),
+      },
+
+      {
+        title: "Industry Type/Sector",
+        variableName: "industryType",
+        inputPlaceHolder: "Industry Type/Sector",
+        htmlType: "inputSelection",
+        options: [
+          "Consulting Civil Engineering",
+          "Infrastructure Concessionaire",
+          "Telco",
+          "IT Software",
+          "Other - Please Specify",
+        ],
+        joiValidation: Joi.string().required().label("Industry Type/Sector"),
+      },
+
+      {
+        title: "Global Regions",
+        variableName: "globalRegions",
+        inputPlaceHolder: "Global Regions",
+        htmlType: "inputField",
+        joiValidation: Joi.string().required().label("Global Regions"),
+      },
+
       {
         title: "Year Incorporated",
         variableName: "yearIncor",
@@ -42,16 +91,21 @@ export const formContent = [
         htmlType: "inputField",
         joiValidation: Joi.number().required().label("Year Incorporated"),
       },
+
       {
-        title: "Executive Profiles",
-        variableName: "executiveInfo",
-        inputPlaceHolder: "Executive Profiles (max 500 letters)",
-        htmlType: "textAreaField",
-        joiValidation: Joi.string()
-          .min(8)
-          .max(500)
-          .required()
-          .label("Executive Information"),
+        title: "Type of Partnership",
+        variableName: "typeOfPartnership",
+        inputPlaceHolder: "Type of Partnership",
+        htmlType: "inputSelection",
+        options: [
+          "AI/ML",
+          "Iot",
+          "Geospatial Development",
+          "IT Integrator",
+          "Channel Reseller",
+          "Other - Please Specify",
+        ],
+        joiValidation: Joi.string().required().label("Type of Partnership"),
       },
     ],
   },
@@ -63,17 +117,17 @@ export const formContent = [
       {
         title: "Annual Revenue",
         variableName: "annualRevenue",
-        inputPlaceHolder: "Annual revenues for the past 4 years",
-        htmlType: "inputField",
-        joiValidation: Joi.number().required().label("Annual revenues"),
-      },
-
-      {
-        title: "Current Offering",
-        variableName: "currentOffering",
-        inputPlaceHolder: "Your current offerings",
-        htmlType: "inputField",
-        joiValidation: Joi.number().required().label("Current offerings"),
+        inputPlaceHolder: "Annual revenue",
+        htmlType: "inputSelection",
+        options: [
+          "10,000 - 100,000",
+          "100,000 - 1,000,000",
+          "1,000,000 - 10,000,000",
+          "10,000,000 - 100,000,000",
+          "100,000,000 - 1,000,000,000",
+          "1,000,000,000 - 10,000,000,000",
+        ],
+        joiValidation: Joi.string().required().label("Annual Revenues"),
       },
 
       {
@@ -81,21 +135,65 @@ export const formContent = [
         variableName: "numberOfStaff",
         inputPlaceHolder: "Number of staff",
         htmlType: "inputField",
-        joiValidation: Joi.number().required().label("Number of staff"),
+        joiValidation: Joi.number().required().label("Number of Staff"),
       },
+
       {
-        title: "Offering Type",
-        variableName: "offeringType",
-        inputPlaceHolder: "Offering global or domestic",
+        title: "Number of Client Countries",
+        variableName: "NumberOfClientCountries:",
+        inputPlaceHolder: "Number of Client Countries",
         htmlType: "inputField",
-        joiValidation: Joi.string().required().label("Offering type"),
+
+        joiValidation: Joi.number()
+          .required()
+          .label("Number of Client Countries"),
       },
+
       {
-        title: "Expected Revenue",
+        title: "Client Type",
+        variableName: "clientType",
+        inputPlaceHolder: "Client Type",
+        htmlType: "inputSelection",
+        options: [
+          "Public Sector",
+          "Private Sector",
+          "Institutional",
+          "Law Enforcement",
+          "Military/Defense",
+          "Other - Please Specify",
+        ],
+        joiValidation: Joi.string().required().label("Client Type"),
+      },
+
+      {
+        title: "Expected Revenue as a IRIS Partner",
         variableName: "expectedRevenue",
-        inputPlaceHolder: "Expected revenues in adopting the IRIS solution",
+        inputPlaceHolder: "Expected Revenue as a IRIS Partner ",
         htmlType: "inputField",
-        joiValidation: Joi.number().required().label("Expected revenues"),
+        joiValidation: Joi.number().label("Expected revenues"),
+      },
+
+      {
+        title: "Monthly Hours can dedicate to Iris",
+        variableName: "hourWithIris",
+        inputPlaceHolder: "Monthly Hours can dedicate to Iris ",
+        // inputPlaceHolder:
+        //   "Number of hours per month dedicated to Business Development of the IRIS Smart City Technology",
+        htmlType: "inputField",
+        joiValidation: Joi.number().label("Expected revenues"),
+      },
+
+      {
+        title: "Partnership Expectation",
+        variableName: "partnershipExpectation",
+        inputPlaceHolder:
+          "What does good look like: Tell us what a successful partnership looks like. (250 words)",
+        htmlType: "textAreaField",
+        joiValidation: Joi.string()
+          .min(50)
+          .max(1000)
+          .required()
+          .label("Partnership Expectation"),
       },
     ],
   },

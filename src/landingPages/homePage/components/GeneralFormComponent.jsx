@@ -36,21 +36,35 @@ class GeneralFormComponent extends FormTemplate {
     return (
       <div className="content">
         {this.props.formContent.map(
-          ({ variableName, inputPlaceHolder, htmlType }, key) => {
-            if (htmlType === "inputField") {
-              return this.renderInput(
-                this.ref[variableName + "Ref"],
-                variableName,
-                inputPlaceHolder,
-                key
-              );
-            } else if (htmlType === "textAreaField") {
-              return this.renderTextArea(
-                this.ref[variableName + "Ref"],
-                variableName,
-                inputPlaceHolder,
-                key
-              );
+          ({ variableName, inputPlaceHolder, htmlType, options }, key) => {
+            switch (htmlType) {
+              case "inputField":
+                return this.renderInput(
+                  this.ref[variableName + "Ref"],
+                  variableName,
+                  inputPlaceHolder,
+                  key
+                );
+
+              case "textAreaField":
+                return this.renderTextArea(
+                  this.ref[variableName + "Ref"],
+                  variableName,
+                  inputPlaceHolder,
+                  key
+                );
+
+              case "countryCodeSelection":
+                return this.renderCountryCode(variableName, key);
+
+              case "inputSelection":
+                return this.renderInputSelection(
+                  this.ref[variableName + "Ref"],
+                  variableName,
+                  inputPlaceHolder,
+                  options,
+                  key
+                );
             }
           }
         )}
