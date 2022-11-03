@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-
-function CountryCode({ name, value, handleChange, setInitialValue }) {
+import React from "react";
+import PropTypes from "prop-types";
+function CountryCode({ name, value, handleChange }) {
   return (
     <>
       <select
@@ -661,3 +661,9 @@ function CountryCode({ name, value, handleChange, setInitialValue }) {
 }
 
 export default CountryCode;
+
+CountryCode.propTypes = {
+  name: PropTypes.isRequired,
+  value: PropTypes.isRequired,
+  handleChange: PropTypes.isRequired,
+};

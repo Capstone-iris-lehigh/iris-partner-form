@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import edit from "../../../asset/edit.svg";
 import { formContent } from "../data/formContent";
 
@@ -27,8 +27,8 @@ class Confirmation extends Component {
                 onClick={() => this.props.goBackEdit(FieldIndex)}
               />
             </h5>
-            {formContent.map(({ title, variableName }) => (
-              <div>
+            {formContent.map(({ title, variableName }, key) => (
+              <div key={key}>
                 <span>{title}</span>
                 <span>
                   {data[Object.keys(data)[FieldIndex]] &&
@@ -46,3 +46,9 @@ class Confirmation extends Component {
 }
 
 export default Confirmation;
+
+Confirmation.propTypes = {
+  data: PropTypes.isRequired,
+  goBackEdit: PropTypes.isRequired,
+  goNextStep: PropTypes.isRequired,
+};

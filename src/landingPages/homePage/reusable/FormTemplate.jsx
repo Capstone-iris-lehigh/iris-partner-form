@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import warn from "../../../asset/warning.svg";
+import PropTypes from "prop-types";
 import { DotLoader } from "react-spinners";
 import CountryCode from "./CountryCode";
 
@@ -113,8 +114,8 @@ class Form extends Component {
         />
 
         <datalist id={label + "list"}>
-          {options.map((opt) => (
-            <option>{opt}</option>
+          {options.map((opt, key) => (
+            <option key={key}>{opt}</option>
           ))}
         </datalist>
 
@@ -180,3 +181,7 @@ class Form extends Component {
 }
 
 export default Form;
+
+Form.propTypes = {
+  goNextStep: PropTypes.isRequired,
+};
