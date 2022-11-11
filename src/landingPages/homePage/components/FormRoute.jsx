@@ -163,7 +163,7 @@ class FormRoute extends Component {
     const { currentStep, navItemRef, containerRef, completedStep } = this.state;
 
     return (
-      <div className="home-form-container">
+      <div className="home-form-container" data-testid="formRoute">
         <div className="home-form-nav">
           <div className="home-form-nav__container" ref={containerRef}>
             <Spring

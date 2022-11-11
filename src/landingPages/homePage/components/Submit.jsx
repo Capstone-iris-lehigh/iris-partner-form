@@ -4,6 +4,8 @@ import { PulseLoader } from "react-spinners";
 class Confirmation extends FormTemplate {
   state = {
     errors: {},
+    formData: null,
+    request: null,
   };
 
   componentDidMount() {
@@ -20,13 +22,15 @@ class Confirmation extends FormTemplate {
     const request = new XMLHttpRequest();
     request.open("POST", api);
     request.send(formData);
+
+    this.setState({ formData, request });
   }
 
   ref = {};
 
   render() {
     return (
-      <div className="content">
+      <div className="content" data-testid="submit">
         <p className="final-message">
           Thank you for submitting your companies corporate profile. The IRIS
           Team will review and be in touch soon. If chosen to be a certified

@@ -1,6 +1,19 @@
 import Joi from "joi-browser";
 
 export const formContent = [
+  // {
+  //   fieldLabel: "More Detail",
+  //   fieldVarLabel: "MoreDetail",
+  //   formContent: [
+  //     {
+  //       title: "CEO AGE",
+  //       variableName: "CeoAge",
+  //       inputPlaceHolder: "CEO Age",
+  //       htmlType: "inputField",
+  //       joiValidation: Joi.number().required().label("CEO AGE"),
+  //     },
+  //   ],
+  // },
   {
     fieldLabel: "Company Information",
     fieldVarLabel: "CompanyInfoData",
@@ -199,17 +212,4 @@ export const formContent = [
   },
 
   // Uncomment below to test out dynamic form rendering
-  // {
-  //   fieldLabel: "More Detail",
-  //   fieldVarLabel: "MoreDetail",
-  //   formContent: [
-  //     {
-  //       title: "CEO AGE",
-  //       variableName: "CeoAge",
-  //       inputPlaceHolder: "CEO Age",
-  //       htmlType: "inputField",
-  //       joiValidation: Joi.number().required().label("CEO AGE"),
-  //     },
-  //   ],
-  // },
 ];

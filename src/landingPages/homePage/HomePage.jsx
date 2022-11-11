@@ -5,7 +5,7 @@ import React from "react";
 
 function HomePage() {
   return (
-    <div className="home">
+    <div className="home" data-testid="homePage">
       <nav className="home-nav">
         <div className="home-nav__header">
           <a href="https://www.irisradgroup.com/">Main Site</a>
