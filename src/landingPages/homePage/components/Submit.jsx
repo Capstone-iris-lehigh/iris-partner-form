@@ -11,7 +11,7 @@ class Confirmation extends FormTemplate {
   componentDidMount() {
     window.scrollTo(0, 0);
     const formData = new FormData();
-    var api = "https://iris-form-backend.netlify.app";
+    var api = "  https://iris-form-backend.netlify.app/.netlify/functions/api";
     api += "/sendEmail";
 
     Object.keys(this.props.data).map((field) =>
