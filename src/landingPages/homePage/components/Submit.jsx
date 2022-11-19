@@ -1,9 +1,9 @@
 import React from "react";
 import FormTemplate from "../reusable/FormTemplate";
-import { PulseLoader } from "react-spinners";
+
 class Confirmation extends FormTemplate {
   state = {
-    errors: {},
+    error: null,
     formData: null,
     request: null,
   };
@@ -11,7 +11,7 @@ class Confirmation extends FormTemplate {
   componentDidMount() {
     window.scrollTo(0, 0);
     const formData = new FormData();
-    var api = "  https://iris-form-backend.netlify.app/.netlify/functions/api";
+    var api = "https://iris-form-backend.netlify.app/.netlify/functions/api";
     api += "/sendEmail";
 
     Object.keys(this.props.data).map((field) =>
@@ -22,7 +22,11 @@ class Confirmation extends FormTemplate {
 
     const request = new XMLHttpRequest();
     request.open("POST", api);
-    request.send(formData);
+    try {
+      request.send(formData);
+    } catch (error) {
+      console.log(error);
+    }
 
     this.setState({ formData, request });
   }
@@ -39,8 +43,11 @@ class Confirmation extends FormTemplate {
           and signage.
         </p>
         <button>
-          <span style={{ marginRight: "15px" }}>Calling Iris API</span>{" "}
-          <PulseLoader size={5} color="white" />
+          <span style={{ marginRight: "15px" }}>
+            {this.state.error
+              ? "Internal Sever Error"
+              : "Request Sent Successfully!"}
+          </span>{" "}
         </button>
       </div>
     );
